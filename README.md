@@ -13,6 +13,7 @@ Slaytlardaki kod örnekleri haftalara göre, ders projeleri kendi klasörlerinde
 
 ## Projeler
 
+- `programlama-temelleri/araba-galerisi/`: dizilerle Araba Galerisi vitrini (veritabanısız), 7. hafta. Kurulum: klasördeki `BENIOKU.txt`.
 - `internet-programciligi-1/araba-galerisi/`: PHP + MySQL (PDO) Araba Galerisi, 7. hafta. Kurulum: klasördeki `BENIOKU.txt`.
 - `web-tasarim/odev-sablonu/`: ödev deposu şablonu; `web-tasarim/kacis-odasi.html`: tekrar oyunu.
 - `sql-alistirma/kutuphane.sql`: ilişkili tablolar ve JOIN alıştırması.

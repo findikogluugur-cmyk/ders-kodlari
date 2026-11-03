@@ -1,0 +1,13 @@
+Araba Galerisi · Programlama Temelleri 7. hafta (diziler)
+
+Kurulum
+1. XAMPP Control Panel'de Apache'yi başlatın (Start, yeşil olmalı).
+2. Bu klasördeki arabalar.php ve index.php dosyalarını C:\xampp\htdocs\galeri\ klasörüne kopyalayın.
+3. Tarayıcıda http://localhost/galeri/ adresini açın.
+
+Dosyalar
+- arabalar.php: arabaların listesi (dizilerden oluşan dizi)
+- index.php: listeyi kartlar hâlinde gösteren vitrin sayfası
+
+Bu, derste birlikte yazdığımız başlangıç sürümü. Adım 5'i (ortalama fiyat,
+en ucuz araba, Az kullanılmış rozeti) ve haftanın görevlerini siz ekleyeceksiniz.

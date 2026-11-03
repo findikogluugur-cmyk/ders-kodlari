@@ -1,5 +1,6 @@
 <?php
-// Hafta 5 · Uyarı kutuları Sonucu Bootstrap alert ile göstermek if (!empty($hata)): ?>
+// Hafta 5 · Uyarı kutuları Sonucu Bootstrap alert ile göstermek
+if (!empty($hata)): ?>
   <div class="alert alert-danger">
     <?= htmlspecialchars($hata) ?>
   </div>

@@ -1,5 +1,6 @@
 <?php
-// Hafta 7 · Adım 4 · index.php Diziyi HTML kartlarına dökmek require "arabalar.php"; ?>
+// Hafta 7 · Adım 4 · index.php Diziyi HTML kartlarına dökmek
+require "arabalar.php"; ?>
 <!DOCTYPE html>
 <html lang="tr"><head><meta charset="UTF-8">
 <title>Araba Galerisi</title></head><body>
