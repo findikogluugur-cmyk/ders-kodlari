@@ -1,0 +1,15 @@
+/* Web Tasarımının Temelleri · Öğr. Gör. Uğur Fındıkoğlu
+   Stilleri bu dosyaya yazın. */
+:root {
+  --lacivert: #253571;
+  --turkuaz: #48c2ce;
+  --sari: #ffd200;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 16px;
+}

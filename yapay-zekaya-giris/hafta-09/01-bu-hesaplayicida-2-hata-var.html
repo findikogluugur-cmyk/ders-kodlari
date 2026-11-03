@@ -1,0 +1,15 @@
+<!-- Hafta 9 · Canlı deneme · Hata avcısı Bu hesaplayıcıda 2 hata var -->
+<style>body{font-family:system-ui;padding:16px} input{padding:6px;width:120px} #s{font-size:22px;margin-top:10px}</style>
+<h3>Kampüs Kafesi · Hesap Bölüşme</h3>
+Toplam (TL): <input id="t" value="450"><br><br>
+Kişi sayısı: <input id="k" value="3"><br><br>
+<button onclick="hesapla()">Hesapla</button>
+<div id="s"></div>
+<script>
+  function hesapla(){
+    const toplam = document.getElementById('t').value;
+    const kisi = document.getElementById('k').value;
+    const pay = toplam + 50 / kisi;   // 50 TL bahşiş paylaşılacak
+    document.getElementById('s').textContent = 'Kişi başı: ' + pay + ' TL';
+  }
+</script>

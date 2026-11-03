@@ -1,0 +1,13 @@
+/* Hafta 9 · Duyarlı tasarım Önce mobil, sonra büyük ekran */
+.kartlar {
+  display: grid;
+  grid-template-columns: 1fr;     /* telefon */
+}
+
+@media (min-width: 768px) {       /* tablet */
+  .kartlar { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1200px) {      /* masaüstü */
+  .kartlar { grid-template-columns: repeat(4, 1fr); }
+}

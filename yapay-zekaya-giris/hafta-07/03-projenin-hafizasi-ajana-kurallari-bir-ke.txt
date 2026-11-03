@@ -1,0 +1,19 @@
+# CLAUDE.md
+
+Aile bütçesi sitesi. Kullanıcı arayüzü,
+kod yorumları ve commit mesajları Türkçe.
+
+## Komutlar
+- npm run build — değişiklikten sonra
+  bunu ve npm run lint çalıştır
+
+## Veritabanı
+- Şema supabase/migrations/ altında,
+  numara sırasıyla.
+- Tüm tablolarda RLS var.
+- budget_limits: yalnızca yönetici görür.
+
+## Kurallar
+- Renkler globals.css tokenlarından;
+  sarı/kırmızı yalnız limit uyarıları için.
+- Değişiklikleri DEGISIKLIKLER.md'ye ekle.

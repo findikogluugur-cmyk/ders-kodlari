@@ -1,0 +1,19 @@
+<!-- Hafta 7 · 4 · gap ve flex-wrap Menü kartları: yan yana, sığmayınca alt satıra -->
+<style>
+  .menu {
+    display: flex;
+    gap: 8px;
+  }
+  .kart { flex: 0 0 140px; background: #fff; border: 2px solid #253571; border-radius: 10px; padding: 12px; }
+  .kart b { display: block; color: #253571; }
+  .kart span { color: #00a3b4; font-weight: bold; }
+  body { background: #e3f5f7; font-family: sans-serif; }
+</style>
+<div class="menu">
+  <div class="kart"><b>Türk kahvesi</b><span>60 TL</span></div>
+  <div class="kart"><b>Filtre kahve</b><span>75 TL</span></div>
+  <div class="kart"><b>Latte</b><span>90 TL</span></div>
+  <div class="kart"><b>Salep</b><span>85 TL</span></div>
+  <div class="kart"><b>Tost</b><span>110 TL</span></div>
+  <div class="kart"><b>Kurabiye</b><span>45 TL</span></div>
+</div>

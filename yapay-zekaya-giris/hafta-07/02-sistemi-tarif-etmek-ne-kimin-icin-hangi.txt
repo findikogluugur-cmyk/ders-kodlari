@@ -1,0 +1,19 @@
+Aileler için telefona uygun bir bütçe sitesi
+istiyorum. Next.js, Supabase ve Vercel kullan.
+
+Kullanıcılar:
+- E-postayla giriş; bir kişi aile kurar,
+  diğerleri davet koduyla katılır.
+- Aile yöneticisi limitleri belirler.
+
+Özellikler:
+- Elle gelir/gider ekleme, kategori seçme
+- Fiş fotoğrafından Claude API ile tutar,
+  tarih ve yer okuma; kaydetmeden önce
+  kullanıcıya gösterip onaylatma
+- Aylık özet ve kategori limitleri
+
+Kurallar:
+- Her aile yalnız kendi verisini görür (RLS)
+- Arayüz ve kod yorumları Türkçe
+- Önce bir plan çıkar, onayımı bekle.

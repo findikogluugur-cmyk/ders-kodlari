@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flexbox Kaçış Odası · Web Tasarımı Hafta 7</title>
+<link rel="icon" href="favicon.svg">
+<style>
+  :root { --lac: #253571; --koyu: #132a4e; --cam: #00a3b4; --sari: #ffd200; --zemin: #eef7f9; --yazi: #1d2433; --kirmizi: #d64545; --yesil: #1f9d63; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--zemin); color: var(--yazi); }
+  header { background: var(--koyu); color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  header b { color: var(--sari); }
+  header .durum { display: flex; gap: 14px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  main { max-width: 760px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 22px; margin: 8px 0 4px; color: var(--lac); }
+  .alt { color: #55607a; margin: 0 0 14px; font-size: 15px; }
+  .kutu { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 3px #0001; }
+  .ilerleme { display: flex; gap: 6px; margin: 0 0 14px; }
+  .ilerleme span { flex: 1; height: 8px; border-radius: 4px; background: #d5e3ea; }
+  .ilerleme span.bitti { background: var(--yesil); }
+  .ilerleme span.simdi { background: var(--cam); }
+
+  .sahne { position: relative; height: 230px; border-radius: 12px; overflow: hidden; margin: 12px 0;
+           background: repeating-linear-gradient(45deg, #2e3f7a, #2e3f7a 10px, #2a3a72 10px, #2a3a72 20px); }
+  .sahne.yuksek { height: 300px; }
+  .oda { position: absolute; inset: 0; display: flex; padding: 12px; }
+  .oda.hedef > * { background: transparent !important; border: 3px dashed #ffd200aa; color: transparent; }
+  .oge { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+         font-size: 28px; background: var(--sari); transition: transform .5s, left .5s; flex-shrink: 0; }
+  .oge.kapi { background: #8b5a2b; }
+  .oge.duvar { background: #6b7a99; }
+  .oge.sandik { width: 80px; background: #c98b3c; }
+  .sahne.acik .oyuncu .oge { animation: zipla .5s ease; }
+  @keyframes zipla { 50% { transform: translateY(-10px) scale(1.08); } }
+
+  .kod { font-family: ui-monospace, Consolas, monospace; background: #0f1b33; color: #e6edf7; border-radius: 10px; padding: 12px; font-size: 16px; line-height: 1.5; }
+  .kod .sec { color: #7fdcff; }
+  .kod textarea { width: 100%; min-height: 84px; resize: vertical; background: #18284a; color: #fff; border: 1px solid #33507f; border-radius: 6px;
+                  font: inherit; padding: 8px 10px; margin: 4px 0; }
+  .kod textarea:focus { outline: 2px solid var(--sari); }
+  .yazili { color: #8fa3c4; }
+
+  .dugmeler { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  button { font: inherit; border: 0; border-radius: 10px; padding: 12px 18px; cursor: pointer; font-weight: 600; }
+  .birincil { background: var(--lac); color: #fff; }
+  .birincil:disabled { opacity: .5; cursor: default; }
+  .ikincil { background: #e3ebf3; color: var(--lac); }
+  .mesaj { min-height: 24px; margin-top: 10px; font-weight: 600; }
+  .mesaj.iyi { color: var(--yesil); }
+  .mesaj.kotu { color: var(--kirmizi); }
+  .ipucu { margin-top: 10px; padding: 10px 12px; border-left: 4px solid var(--sari); background: #fff8d6; border-radius: 6px; display: none; }
+
+  .giris label { display: block; font-weight: 600; margin: 12px 0 6px; }
+  .giris select { font: inherit; font-size: 16px; padding: 10px; border-radius: 8px; border: 1px solid #b9c7d6; width: 100%; max-width: 260px; }
+  .bitis { text-align: center; }
+  .cikis-kodu { font-family: ui-monospace, Consolas, monospace; font-size: 44px; letter-spacing: 6px; color: var(--lac); background: #fff8d6;
+                border: 3px dashed var(--sari); border-radius: 14px; padding: 14px; margin: 14px auto; display: inline-block; }
+  ul.kurallar { padding-left: 20px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<header>
+  <span><b>Flexbox Kaçış Odası</b> · Web Tasarımı Hafta 7</span>
+  <span class="durum"><span id="lonca-etiket"></span><span>⏱ <span id="sure">00:00</span></span><span>💡 <span id="ipucu-sayisi">0</span></span></span>
+</header>
+<main id="ekran"></main>
+
+<script>
+// Her oda: başlık, hikâye, CSS'in yazılacağı seçici, çözüm (hedef konumlar için) ve ipucu.
+// Doğruluk, oyuncunun ögelerinin konumu hedef ögelerin konumuyla (±3px) aynı mı diye denetlenir;
+// yani aynı düzeni veren her doğru CSS kabul edilir.
+const ODALAR = [
+  { ad: "Kapı sağda", hikaye: "Anahtar kapıdan uzakta kalmış. Anahtarı sağ duvardaki kilide götür.",
+    sec: ".oda", ogeler: ["🗝️"], cozum: "justify-content: flex-end;", ipucu: "Ana eksende sona yaslamak: justify-content." },
+  { ad: "Tam orta", hikaye: "Pusula odanın tam ortasına konursa tavandaki kapak açılıyor.",
+    sec: ".oda", ogeler: ["🧭"], cozum: "justify-content: center; align-items: center;", ipucu: "İki eksen, iki özellik: justify-content ve align-items, ikisi de center." },
+  { ad: "Köşedeki kasalar", hikaye: "Üç anahtar zemine, birbirinden olabildiğince uzağa yerleşmeli.",
+    sec: ".oda", ogeler: ["🗝️", "🗝️", "🗝️"], cozum: "justify-content: space-between; align-items: flex-end;", ipucu: "Uçlara yaslayıp aralarını eşit açan değer: space-between. Zemin = çapraz eksenin sonu: flex-end." },
+  { ad: "Kule", hikaye: "Üç taş üst üste, sağ duvara dayalı bir kule olunca merdiven iniyor.",
+    sec: ".oda", ogeler: ["🪨", "🪨", "🪨"], yuksek: true, cozum: "flex-direction: column; align-items: flex-end;", ipucu: "Önce yönü dikey yapın (flex-direction: column). Eksenler yer değiştirir: sağa yaslamak artık align-items'ın işi." },
+  { ad: "Taşan sandıklar", hikaye: "Yedi sandık tek sıraya sığmıyor ve birbirine sıkışmış. Alt satıra geçsinler, aralarında 12px boşluk olsun.",
+    sec: ".oda", ogeler: ["📦", "📦", "📦", "📦", "📦", "📦", "📦"], sinif: "sandik", yuksek: true, cozum: "flex-wrap: wrap; gap: 12px;", ipucu: "Sığmayanı alt satıra geçiren: flex-wrap: wrap. Boşluk: gap." },
+  { ad: "Son kapı", hikaye: "İki duvar arasındaki kapı, kalan bütün boşluğu doldurursa açılıyor. Bu kez CSS'i kapıya yazın.",
+    sec: ".kapi", ogeler: ["🧱", "🚪", "🧱"], siniflar: ["duvar", "kapi", "duvar"], kapsayici: "gap: 8px;", cozum: "flex: 1;", ipucu: "Kalan alanı paylaşan kısaltma: flex: 1 (büyü 1, küçül 1, başlangıç 0)." },
+];
+
+const KAYIT = "flex-kacis-7";
+let durum = { lonca: null, oda: 0, baslangic: null, bitis: null, ipucu: 0, ipucuAlinan: [] };
+try { const k = JSON.parse(localStorage.getItem(KAYIT) || "null"); if (k && k.lonca) durum = k; } catch (e) { /* tarayıcı depolaması yok */ }
+const kaydet = () => { try { localStorage.setItem(KAYIT, JSON.stringify(durum)); } catch (e) { /* yok */ } };
+
+const $ = (s, el = document) => el.querySelector(s);
+const ekran = $("#ekran");
+const temizle = (css) => css.replace(/[{}<>]/g, "").replace(/\/\*[\s\S]*?\*\//g, "");
+
+// Lonca numarasına bağlı çıkış kodu (hocanın listesindekiyle aynı)
+function cikisKodu(lonca) {
+  let h = 2166136261;
+  for (const c of "flex-kacis-7/lonca-" + lonca) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+  return h.toString(36).toUpperCase().padStart(6, "0").slice(-5).replace(/0/g, "Q").replace(/O/g, "X");
+}
+
+function sureYaz() {
+  if (!durum.baslangic) return "00:00";
+  const son = durum.bitis || Date.now();
+  const sn = Math.floor((son - durum.baslangic) / 1000) + durum.ipucu * 60;
+  return String(Math.floor(sn / 60)).padStart(2, "0") + ":" + String(sn % 60).padStart(2, "0");
+}
+setInterval(() => { $("#sure").textContent = sureYaz(); }, 1000);
+function ust() {
+  $("#lonca-etiket").textContent = durum.lonca ? "Lonca " + durum.lonca : "";
+  $("#ipucu-sayisi").textContent = durum.ipucu;
+  $("#sure").textContent = sureYaz();
+}
+
+function giris() {
+  ust();
+  const secenekler = Array.from({ length: 13 }, (_, i) => `<option value="${i + 1}">Lonca ${i + 1}</option>`).join("");
+  ekran.innerHTML = `
+    <h1>Flexbox Kaçış Odası</h1>
+    <p class="alt">6 kilitli oda. Her odada doğru Flexbox CSS'ini yazınca kapı açılır.</p>
+    <div class="kutu giris">
+      <ul class="kurallar">
+        <li>Loncanızla <b>tek cihazda</b> oynayın, sırayla yazın.</li>
+        <li>Odadaki kutuların <b>sarı kesikli çizgili</b> yerlere oturması gerekiyor.</li>
+        <li><code>display: flex</code> her odada zaten yazılı.</li>
+        <li>Her ipucu sürenize <b>1 dakika</b> ekler.</li>
+        <li>Son odada çıkan kodu hocaya gösterin: <b>+30 XP</b>, ilk bitiren lonca <b>+50 XP</b> daha.</li>
+      </ul>
+      <label for="lonca">Loncanız</label>
+      <select id="lonca"><option value="">Seçin…</option>${secenekler}</select>
+      <div class="dugmeler"><button class="birincil" id="basla" disabled>Kapıyı aç, başla</button></div>
+    </div>`;
+  const sec = $("#lonca"), basla = $("#basla");
+  sec.onchange = () => { basla.disabled = !sec.value; };
+  basla.onclick = () => {
+    durum = { lonca: Number(sec.value), oda: 0, baslangic: Date.now(), bitis: null, ipucu: 0, ipucuAlinan: [] };
+    kaydet(); oda();
+  };
+}
+
+function ogeHTML(o, i) {
+  const sinif = (o.siniflar && o.siniflar[i]) || o.sinif || "";
+  return `<div class="oge ${sinif}">${o.ogeler[i]}</div>`;
+}
+
+function oda() {
+  ust();
+  if (durum.oda >= ODALAR.length) return bitis();
+  const o = ODALAR[durum.oda];
+  const ilerleme = ODALAR.map((_, i) => `<span class="${i < durum.oda ? "bitti" : i === durum.oda ? "simdi" : ""}"></span>`).join("");
+  const ogeler = o.ogeler.map((_, i) => ogeHTML(o, i)).join("");
+  const kapsayiciSatiri = o.sec === ".oda"
+    ? ""
+    : `<div><span class="sec">.oda</span> { <span class="yazili">display: flex; ${o.kapsayici || ""}</span> }</div>`;
+  ekran.innerHTML = `
+    <div class="ilerleme">${ilerleme}</div>
+    <h1>Oda ${durum.oda + 1}: ${o.ad}</h1>
+    <p class="alt">${o.hikaye}</p>
+    <div class="sahne ${o.yuksek ? "yuksek" : ""}" id="sahne">
+      <div class="oda hedef" style="${o.kapsayici || ""}">${ogeler}</div>
+      <div class="oda oyuncu" style="${o.kapsayici || ""}">${ogeler}</div>
+    </div>
+    <div class="kod">
+      ${kapsayiciSatiri}
+      <div><span class="sec">${o.sec}</span> {</div>
+      ${o.sec === ".oda" ? `<div class="yazili">&nbsp;&nbsp;display: flex;</div>` : ""}
+      <textarea id="css" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="${o.sec} için CSS" placeholder="buraya yazın, ör. justify-content: center;"></textarea>
+      <div>}</div>
+    </div>
+    <div class="dugmeler">
+      <button class="birincil" id="dene">Kapıyı dene</button>
+      <button class="ikincil" id="ipucu-al">💡 İpucu (+1 dk)</button>
+    </div>
+    <div class="ipucu" id="ipucu">${o.ipucu}</div>
+    <div class="mesaj" id="mesaj" role="status"></div>`;
+
+  // Hedef düzen: çözüm, kesikli çizgili hayalet kopyaya uygulanır
+  const hedef = $(".oda.hedef"), oyuncu = $(".oda.oyuncu");
+  const uygula = (kap, css) => {
+    const yer = o.sec === ".oda" ? [kap] : Array.from(kap.children).filter((c) => c.classList.contains(o.sec.slice(1)));
+    yer.forEach((el) => { el.style.cssText = (o.sec === ".oda" ? (o.kapsayici || "") : "") + css; });
+  };
+  uygula(hedef, o.cozum);
+
+  const css = $("#css");
+  const kayitli = sessionStorageGet("css-" + durum.oda);
+  if (kayitli) css.value = kayitli;
+  css.oninput = () => { uygula(oyuncu, temizle(css.value)); sessionStorageSet("css-" + durum.oda, css.value); $("#mesaj").textContent = ""; };
+  uygula(oyuncu, temizle(css.value));
+
+  if (durum.ipucuAlinan.includes(durum.oda)) $("#ipucu").style.display = "block";
+  $("#ipucu-al").onclick = () => {
+    if (!durum.ipucuAlinan.includes(durum.oda)) { durum.ipucuAlinan.push(durum.oda); durum.ipucu++; kaydet(); ust(); }
+    $("#ipucu").style.display = "block";
+  };
+  $("#dene").onclick = () => {
+    if (ayniMi(hedef, oyuncu)) {
+      const m = $("#mesaj"); m.className = "mesaj iyi"; m.textContent = "Kapı açıldı! 🎉";
+      $("#sahne").classList.add("acik");
+      $("#dene").disabled = true;
+      durum.oda++; kaydet();
+      setTimeout(oda, 1100);
+    } else {
+      const m = $("#mesaj"); m.className = "mesaj kotu"; m.textContent = "Kapı kilitli. Kutular kesikli çizgilere oturmadı.";
+    }
+  };
+}
+
+function ayniMi(hedef, oyuncu) {
+  const a = hedef.children, b = oyuncu.children, ha = hedef.getBoundingClientRect(), hb = oyuncu.getBoundingClientRect();
+  for (let i = 0; i < a.length; i++) {
+    const ra = a[i].getBoundingClientRect(), rb = b[i].getBoundingClientRect();
+    if (Math.abs((ra.left - ha.left) - (rb.left - hb.left)) > 3 || Math.abs((ra.top - ha.top) - (rb.top - hb.top)) > 3 ||
+        Math.abs(ra.width - rb.width) > 3 || Math.abs(ra.height - rb.height) > 3) return false;
+  }
+  return true;
+}
+
+function sessionStorageGet(k) { try { return sessionStorage.getItem(KAYIT + k); } catch (e) { return null; } }
+function sessionStorageSet(k, v) { try { sessionStorage.setItem(KAYIT + k, v); } catch (e) { /* yok */ } }
+
+function bitis() {
+  if (!durum.bitis) { durum.bitis = Date.now(); kaydet(); }
+  ust();
+  ekran.innerHTML = `
+    <div class="ilerleme">${ODALAR.map(() => '<span class="bitti"></span>').join("")}</div>
+    <div class="kutu bitis">
+      <h1>Kaçtınız! 🏆</h1>
+      <p>Lonca ${durum.lonca} · Süre <b>${sureYaz()}</b> · İpucu <b>${durum.ipucu}</b></p>
+      <p>Bu kodu hocaya gösterin:</p>
+      <div class="cikis-kodu">${cikisKodu(durum.lonca)}</div>
+      <p class="alt">Kod loncanıza özeldir. Ekranı kapatmayın.</p>
+      <div class="dugmeler" style="justify-content:center"><button class="ikincil" id="yeniden">Yeni oyun (başka lonca)</button></div>
+    </div>`;
+  $("#yeniden").onclick = () => {
+    if (!confirm("Bu loncanın oyunu silinsin mi?")) return;
+    try { localStorage.removeItem(KAYIT); sessionStorage.clear(); } catch (e) { /* yok */ }
+    durum = { lonca: null, oda: 0, baslangic: null, bitis: null, ipucu: 0, ipucuAlinan: [] };
+    giris();
+  };
+}
+
+durum.lonca ? oda() : giris();
+</script>
+</body>
+</html>

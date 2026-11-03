@@ -1,0 +1,27 @@
+ARABA GALERİSİ · İnternet Programcılığı I, 7. hafta
+
+Kurulum
+1. XAMPP Control Panel'de Apache ve MySQL'i başlatın.
+2. Bu klasörü C:\xampp\htdocs\araba-galerisi\ olarak kopyalayın.
+3. Tarayıcıda localhost/phpmyadmin → SQL sekmesi → veritabani.sql dosyasının içeriğini yapıştırıp "Git".
+4. localhost/araba-galerisi/ adresini açın. Vitrinde 3 araba görmelisiniz.
+5. "Kayıt ol" ile kendinize bir hesap açın, giriş yapın, Yönetim'den araba ekleyin, düzenleyin, silin.
+
+Dosyalar
+baglanti.php       PDO bağlantısı, session_start ve e() kaçış fonksiyonu
+ust.php / alt.php  Her sayfada ortak menü ve sayfa sonu
+index.php          Vitrin: SELECT + foreach + arama (LIKE)
+arac.php           Tek araba: ?id= ile SELECT
+kayit.php          password_hash ile kayıt
+giris.php          password_verify ile giriş, $_SESSION
+cikis.php          Oturumu kapatır
+giris_kontrol.php  Giriş yoksa giris.php'ye gönderir (header + exit)
+yonetim.php        Arabaların listesi, Düzenle ve Sil
+arac_form.php      Ekle/düzenle ortak formu
+arac_dogrula.php   Form denetimi
+arac_ekle.php      INSERT
+arac_duzenle.php   SELECT + UPDATE
+arac_sil.php       DELETE (yalnız POST)
+
+Bu uygulama derste verilen "PHP PDO üyelik sistemi" örneğinin yapısından (giriş, kayıt, liste, ekle, düzenle, sil) yola çıkar;
+şifreler password_hash ile saklanır, ekrana yazılan her şey htmlspecialchars'tan geçer, silme POST ile yapılır.

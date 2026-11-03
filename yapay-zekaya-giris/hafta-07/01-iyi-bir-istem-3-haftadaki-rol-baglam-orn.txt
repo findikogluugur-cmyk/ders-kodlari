@@ -1,0 +1,19 @@
+Rol: Deneyimli bir web geliştiricisisin.
+
+Görev: Tek dosyalık (index.html) bir
+"Araba Galerisi" sayfası yaz.
+
+Bağlam: Yalnız HTML, CSS ve JavaScript;
+dış kütüphane ya da sunucu yok.
+
+İçerik: 8 araba bir JavaScript dizisinde
+(marka, model, yıl, km, fiyat).
+
+Özellikler:
+- Her araba bir kart
+- Marka/model arama kutusu
+- "Fiyata göre sırala" düğmesi
+- Telefonda düzgün görünsün
+
+Ölçüt: Arayüz Türkçe, kodda kısa
+Türkçe açıklamalar, tek dosya.

@@ -1,0 +1,19 @@
+<!-- Hafta 2 · Canlı deneme Oyuncak dil modeli: bir sonraki kelimeyi tahmin et -->
+<style>body{font-family:system-ui;padding:16px} textarea{width:100%;height:90px} #out{margin-top:12px;font-size:20px;color:#253571}</style>
+<p><b>Eğitim metni:</b></p>
+<textarea id="t">bugün hava çok güzel. bugün ders çok güzel. bugün hava çok sıcak. yarın hava çok soğuk.</textarea>
+<button onclick="uret()">“bugün” ile başlayan cümle üret</button>
+<div id="out"></div>
+<script>
+function uret(){
+  const w = document.getElementById('t').value.toLowerCase().replace(/[.]/g,' .').split(/\s+/);
+  const sonraki = {};
+  for (let i=0;i<w.length-1;i++){ (sonraki[w[i]] ??= []).push(w[i+1]); }
+  let k='bugün', cumle=[k];
+  for (let i=0;i<8 && k!=='.';i++){
+    const s = sonraki[k]; if(!s) break;
+    k = s[Math.floor(Math.random()*s.length)]; cumle.push(k);
+  }
+  document.getElementById('out').textContent = cumle.join(' ');
+}
+</script>

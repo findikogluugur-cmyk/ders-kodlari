@@ -1,0 +1,14 @@
+<!-- Hafta 10 · Canlı deneme CSS değişkenleri ile tema -->
+<style>
+  :root { --ana: #253571; --vurgu: #ffd200; --zemin: #fff; --yazi: #132a4e; }
+  .koyu { --zemin: #132a4e; --yazi: #fff; }
+  body { background: var(--zemin); color: var(--yazi); }
+  h2 { color: var(--ana); border-bottom: 4px solid var(--vurgu); }
+  .koyu h2 { color: var(--vurgu); }
+  button { background: var(--ana); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; }
+</style>
+<body>
+  <h2>Tema denemesi</h2>
+  <p>Tek satırla bütün renkler değişir.</p>
+  <button>Düğme</button>
+</body>

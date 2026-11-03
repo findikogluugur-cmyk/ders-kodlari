@@ -1,0 +1,19 @@
+<!-- Hafta 11 · Canlı deneme Veriyi kartlara dönüştürün -->
+<style>body{font-family:system-ui;padding:14px} .k{border:2px solid #d5deea;border-radius:10px;padding:10px;margin:6px 0}</style>
+<h3>Kitap Önerileri</h3>
+<div id="liste"></div>
+<script>
+  // Bir API'den gelen JSON yanıtı
+  const veri = [
+    {"ad": "Sefiller", "yazar": "Victor Hugo", "fiyat": 145},
+    {"ad": "Küçük Prens", "yazar": "Saint-Exupéry", "fiyat": 60},
+    {"ad": "Satranç", "yazar": "Stefan Zweig", "fiyat": 75}
+  ];
+  const liste = document.getElementById('liste');
+  veri.forEach(k => {
+    const d = document.createElement('div');
+    d.className = 'k';
+    d.textContent = k.ad + ' · ' + k.yazar + ' · ' + k.fiyat + ' TL';
+    liste.appendChild(d);
+  });
+</script>

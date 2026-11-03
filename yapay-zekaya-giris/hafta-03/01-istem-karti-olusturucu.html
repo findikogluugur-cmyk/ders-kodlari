@@ -1,0 +1,11 @@
+<!-- Hafta 3 · Canlı deneme İstem kartı oluşturucu -->
+<style>body{font-family:system-ui;padding:14px} label{display:block;margin-top:8px;font-weight:600} input,textarea{width:100%;padding:6px;font-size:15px} pre{background:#132a4e;color:#fff;padding:12px;white-space:pre-wrap;border-radius:8px}</style>
+<label>Rol</label><input id="r" value="Deneyimli bir web geliştiricisi">
+<label>Bağlam</label><input id="b" value="Meslek yüksekokulu öğrencisiyim, HTML biliyorum">
+<label>Görev</label><input id="g" value="Bir yapılacaklar listesi sayfası yap">
+<label>Ölçütler</label><input id="o" value="Tek HTML dosyası, telefonda düzgün, Türkçe yorumlu">
+<pre id="p"></pre>
+<script>
+const f=()=>{p.textContent=`Rolün: ${r.value}.\nBağlam: ${b.value}.\nGörev: ${g.value}.\nÖlçütler: ${o.value}.\nEksik bilgi varsa önce bana sor.`};
+document.querySelectorAll('input').forEach(i=>i.oninput=f); f();
+</script>

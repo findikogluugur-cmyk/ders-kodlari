@@ -1,0 +1,22 @@
+<!-- Hafta 6 · Canlı deneme Bu sayfa tek istemle üretildi. Geliştirin! -->
+<style>
+  body{font-family:system-ui;max-width:480px;margin:20px auto;padding:0 12px}
+  li{padding:8px;border-bottom:1px solid #ddd;list-style:none}
+  input{padding:8px;width:70%} button{padding:8px 12px}
+</style>
+<h2>Ders Programım</h2>
+<input id="yeni" placeholder="Ders adı ve saati"><button onclick="ekle()">Ekle</button>
+<ul id="liste">
+  <li>Pazartesi 09:00 · Yapay Zekâya Giriş</li>
+  <li>Salı 13:00 · Web Tasarımı</li>
+</ul>
+<script>
+  function ekle(){
+    const v = document.getElementById('yeni').value;
+    if(!v) return;
+    const li = document.createElement('li');
+    li.textContent = v;
+    document.getElementById('liste').appendChild(li);
+    document.getElementById('yeni').value='';
+  }
+</script>

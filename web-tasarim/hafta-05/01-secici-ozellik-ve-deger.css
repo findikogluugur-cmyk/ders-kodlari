@@ -1,0 +1,11 @@
+/* Hafta 5 · Söz dizimi Seçici, özellik ve değer */
+h1 {
+  color: #253571;        /* yazı rengi */
+  font-size: 32px;       /* yazı boyutu */
+  text-align: center;    /* hizalama */
+}
+
+.uyari { background: #ffd200; }
+#logo  { width: 200px; }
+nav a  { text-decoration: none; }
+a:hover { color: #48c2ce; }

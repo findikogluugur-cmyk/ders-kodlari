@@ -1,0 +1,12 @@
+/* Hafta 9 · Grid temelleri Sütunları tanımla, ögeler yerleşsin */
+.galeri {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Otomatik duyarlı galeri */
+.galeri {
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
+}

@@ -1,0 +1,19 @@
+<!-- Hafta 1 · Canlı deneme İlk vibe: bu sayfayı yapay zekâ yazdı -->
+<style>
+  body { font-family: system-ui; text-align: center; padding: 30px; background: #f0f4ff; }
+  button { font-size: 20px; padding: 12px 24px; border-radius: 12px; border: none; background: #253571; color: white; cursor: pointer; }
+</style>
+<h1>Günün Motivasyonu</h1>
+<p id="soz">Butona bas, sana bir söz seçeyim.</p>
+<button onclick="sec()">Söz getir</button>
+<script>
+  const sozler = [
+    "Hata yapmak öğrenmenin parçasıdır.",
+    "Küçük adımlar büyük yollar açar.",
+    "Bugün yazdığın kod yarının portfolyosu."
+  ];
+  function sec() {
+    const i = Math.floor(Math.random() * sozler.length);
+    document.getElementById("soz").textContent = sozler[i];
+  }
+</script>

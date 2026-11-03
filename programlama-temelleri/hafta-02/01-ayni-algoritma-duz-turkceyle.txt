@@ -1,0 +1,8 @@
+BAŞLA
+  a ve b sayılarını AL
+  EĞER a > b İSE
+      a'yı YAZ
+  DEĞİLSE
+      b'yi YAZ
+  EĞER SONU
+BİTİR

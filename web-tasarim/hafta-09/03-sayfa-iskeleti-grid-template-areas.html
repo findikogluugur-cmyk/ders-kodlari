@@ -1,0 +1,14 @@
+<!-- Hafta 9 · Canlı deneme Sayfa iskeleti: grid-template-areas -->
+<style>
+  .sayfa { display: grid; gap: 8px; min-height: 260px;
+    grid-template-columns: 160px 1fr;
+    grid-template-areas:
+      "ust ust"
+      "yan ana"
+      "alt alt"; }
+  header{grid-area:ust} aside{grid-area:yan} main{grid-area:ana} footer{grid-area:alt}
+  .sayfa > * { background:#e3f5f7; padding:12px; border-radius:8px; }
+</style>
+<div class="sayfa">
+  <header>Üst</header><aside>Yan menü</aside><main>İçerik</main><footer>Alt</footer>
+</div>

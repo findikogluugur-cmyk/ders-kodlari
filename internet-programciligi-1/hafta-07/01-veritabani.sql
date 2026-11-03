@@ -1,0 +1,24 @@
+-- Hafta 7 · Adım 1 · veritabani.sql İki tablo: kullanıcılar ve arabalar
+CREATE DATABASE IF NOT EXISTS galeri_db CHARACTER SET utf8mb4
+  COLLATE utf8mb4_turkish_ci;
+USE galeri_db;
+
+CREATE TABLE IF NOT EXISTS kullanicilar (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  kadi VARCHAR(50) NOT NULL UNIQUE,
+  eposta VARCHAR(100) NOT NULL,
+  sifre VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS arabalar (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  marka VARCHAR(50) NOT NULL,
+  model VARCHAR(50) NOT NULL,
+  yil SMALLINT NOT NULL,
+  km INT NOT NULL DEFAULT 0,
+  yakit VARCHAR(20) NOT NULL,
+  fiyat DECIMAL(12,2) NOT NULL,
+  resim VARCHAR(255) DEFAULT '',
+  aciklama TEXT,
+  eklenme DATETIME DEFAULT CURRENT_TIMESTAMP
+);
